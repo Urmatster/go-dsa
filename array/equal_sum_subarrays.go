@@ -33,6 +33,5 @@ func EqualSubArrays(list []int) [][]int {
 			}
 		}
 	}
-
 	return out
 }
