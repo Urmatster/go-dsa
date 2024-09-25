@@ -5,20 +5,34 @@ func EqualSubArrays(list []int) [][]int {
 	if len(list) < 2 {
 		return out
 	}
-	sumArr := 0
+
+	totalSum := 0
 	for _, el := range list {
-		sumArr += el
+		totalSum += el
 	}
-	if sumArr%2 != 0 {
+
+	if totalSum%2 != 0 {
 		return out
 	}
-	halfSum := sumArr / 2
+
+	halfSum := totalSum / 2
 	runSum := 0
-	for i, num := range list {
-		runSum += num
+
+	for i := 0; i < len(list)-1; i++ {
+		runSum += list[i]
+
 		if runSum == halfSum {
-			return [][]int{list[:i+1], list[i+1:]}
+
+			subArr1 := make([]int, i+1)
+			copy(subArr1, list[:i+1])
+			subArr2 := make([]int, len(list)-i-1)
+			copy(subArr2, list[i+1:])
+
+			if len(subArr2) > 0 {
+				out = append(out, subArr1, subArr2)
+			}
 		}
 	}
+
 	return out
 }
